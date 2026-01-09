@@ -75,6 +75,9 @@ def main():
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=cfg["train"]["learning_rate"], weight_decay=1e-5)
+    
+    print('hi')
+  
 
     run_name = os.environ.get("RUN_NAME")  # train.sh에서 export RUN_NAME=...
     if run_name is None:
@@ -88,7 +91,13 @@ def main():
     os.makedirs(weight_run_dir, exist_ok=True)
 
     best_path = os.path.join(weight_run_dir, "best_model.pt")
+
+    print('hiiii')
+
     result_path = os.path.join(exp_run_dir, "result.json")
+
+    print('hiwwadasdasdwwiii')
+
 
     # (옵션) 재현성: experiments/<run_name>/config.yaml 저장
     with open(os.path.join(exp_run_dir, "config.yaml"), "w", encoding="utf-8") as f:
@@ -115,6 +124,9 @@ def main():
             f"best_f1={best_f1:.4f}"
         )
 
+    print('hiwwwwiii')
+    
+
     # load best and test
     model.load_state_dict(torch.load(best_path, map_location=device))
     test_result = evaluate(model, test_loader, criterion, device)
@@ -131,6 +143,9 @@ def main():
         },
         "device": str(device),
     }
+
+    print('hiwwadasdasdwwiii')
+
 
     with open(result_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
